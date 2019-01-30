@@ -1,7 +1,11 @@
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+mode: 'development',
+entry: [
+  'regenerator-runtime/runtime',
+  './src/index.js'
+],
   module: {
     rules: [
       {
@@ -19,6 +23,7 @@ module.exports = {
     publicPath: "/",
     filename: "bundle.js"
   },
+  devtool: "eval-source-map",
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: "./dist",

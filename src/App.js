@@ -10,24 +10,26 @@ class Summary extends Component {
       attendance: null,
       oGPA: null
     };
-    this.fetchData = this.fetchData.bind(this);
+    this.getAttendance = this.getAttendance.bind(this);
+    this.getOGPA = this.getOGPA.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchData();
+  async componentDidMount() {
+    try {
+      const response = await axios
+        .get("http://apitest.sertifi.net/api/Students")
+        .then(res => {
+          const data = res.data;
+          this.setState({ data });
+        });
+      this.getAttendance();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  fetchData() {
-    const { data } = axios
-      .get("http://apitest.sertifi.net/api/Students")
-      .then(res => {
-        const data = res.data;
-        this.setState({ data });
-      });
-    this.setState({
-      data: data
-    });
-  }
+  getOGPA() {}
+  getAttendance() {}
   render() {
     var greeting = "Student Summary";
     return (
