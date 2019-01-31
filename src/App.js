@@ -33,6 +33,7 @@ class Summary extends Component {
   getAttendance() {
     const students = this.state.data;
     let date = 2013;
+    debugger;
     let attended;
     let attendance = students.map(obj => {
       let start = obj.StartYear;
@@ -44,8 +45,8 @@ class Summary extends Component {
       } else {
       }
     });
-    attended = attendance.length;
     attendance = attendance.filter(v => v);
+    attended = attendance.length;
     this.setState({ attended });
   }
 
