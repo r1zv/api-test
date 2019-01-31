@@ -7,6 +7,7 @@ class Summary extends Component {
     this.state = {
       data: null,
       year: "2013",
+      studentList:[],
       attended: null,
       oGPA: null
     };
@@ -28,14 +29,15 @@ class Summary extends Component {
     }
   }
 
-  getOGPA() {}
+  getOGPA() {
+
+  }
 
   getAttendance() {
     const students = this.state.data;
     let date = 2013;
-    debugger;
     let attended;
-    let attendance = students.map(obj => {
+    let studentList = students.map(obj => {
       let start = obj.StartYear;
       let end = obj.EndYear;
       let student = {};
@@ -45,8 +47,9 @@ class Summary extends Component {
       } else {
       }
     });
-    attendance = attendance.filter(v => v);
-    attended = attendance.length;
+    studentList = studentList.filter(v => v);
+    this.setState({ studentList })
+    attended = studentList.length;
     this.setState({ attended });
   }
 
