@@ -33,19 +33,18 @@ class Summary extends Component {
   getAttendance() {
     const students = this.state.data;
     let date = 2013;
+    let attended;
     let attendance = students.map(obj => {
-      let attended = attendance.length;
       let start = obj.StartYear;
       let end = obj.EndYear;
       let student = {};
       if (date >= start && date <= end) {
         student = obj;
         return student;
-        console.log("in between");
       } else {
-        console.log("outside");
       }
     });
+    attended = attendance.length;
     attendance = attendance.filter(v => v);
     this.setState({ attended });
   }
