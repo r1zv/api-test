@@ -7,7 +7,7 @@ class Summary extends Component {
     this.state = {
       data: null,
       year: "2013",
-      attendance: null,
+      attended: null,
       oGPA: null
     };
     this.getAttendance = this.getAttendance.bind(this);
@@ -22,22 +22,44 @@ class Summary extends Component {
           const data = res.data;
           this.setState({ data });
         });
-      this.getAttendance();
+      await this.getAttendance();
     } catch (error) {
       console.log(error);
     }
   }
 
   getOGPA() {}
-  getAttendance() {}
+
+  getAttendance() {
+    const students = this.state.data;
+    let date = 2013;
+    let attendance = students.map(obj => {
+      let attended = attendance.length;
+      let start = obj.StartYear;
+      let end = obj.EndYear;
+      let student = {};
+      if (date >= start && date <= end) {
+        student = obj;
+        return student;
+        console.log("in between");
+      } else {
+        console.log("outside");
+      }
+    });
+    attendance = attendance.filter(v => v);
+    this.setState({ attended });
+  }
+
   render() {
-    var greeting = "Student Summary";
+    let greeting = "Student Summary";
+    let attendance = this.state.attendance;
+
     return (
       <div>
         <h1>{greeting}</h1>
         <ul>
           <li>Year: {this.state.year}</li>
-          <li>Attendance: {this.state.attendace}</li>
+          <li>Attendance: {this.state.attended}</li>
           <li>Overall GPA: {this.state.oGPA}</li>
         </ul>
       </div>
