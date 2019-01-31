@@ -7,7 +7,7 @@ class Summary extends Component {
     this.state = {
       data: null,
       year: "2013",
-      studentList:[],
+      studentList: [],
       attended: null,
       oGPA: null
     };
@@ -24,13 +24,27 @@ class Summary extends Component {
           this.setState({ data });
         });
       await this.getAttendance();
+      await this.getOGPA();
     } catch (error) {
       console.log(error);
     }
   }
 
   getOGPA() {
-
+    const students = this.state.studentList;
+    let GPAList = [];
+    students.forEach(function(elem, i) {
+      GPAList.push(elem.GPARecord);
+    });
+    var flattened = GPAList.reduce((acc, curr) => acc.concat(curr), []);
+    console.log(flattened);
+    var sum = 0;
+    for (var i = 0; i < flattened.length; i++) {
+      sum = sum + flattened[i];
+    }
+    let oGPA = sum / flattened.length;
+    console.log(oGPA);
+    this.setState({ oGPA });
   }
 
   getAttendance() {
@@ -38,6 +52,7 @@ class Summary extends Component {
     let date = 2013;
     let attended;
     let studentList = students.map(obj => {
+      // startYear vs StartYear was a time sink!
       let start = obj.StartYear;
       let end = obj.EndYear;
       let student = {};
@@ -48,7 +63,7 @@ class Summary extends Component {
       }
     });
     studentList = studentList.filter(v => v);
-    this.setState({ studentList })
+    this.setState({ studentList });
     attended = studentList.length;
     this.setState({ attended });
   }
