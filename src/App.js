@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
+import Students from "./components/students.component";
 
 class Summary extends Component {
   constructor(props) {
@@ -71,16 +73,32 @@ class Summary extends Component {
   render() {
     let greeting = "Student Summary";
     let attendance = this.state.attendance;
+    let studentList = this.state.studentList;
+    console.log(studentList);
 
     return (
+      <Router>
       <div>
         <h1>{greeting}</h1>
         <ul>
-          <li>Year: {this.state.year}</li>
+          <li>
+          Year: 
+          <Link to="/students">
+          {this.state.year}
+          </Link>
+          </li>
           <li>Attendance: {this.state.attended}</li>
           <li>Overall GPA: {this.state.oGPA}</li>
         </ul>
-      </div>
+        <br></br>
+        <br></br>
+
+        <Route
+         path="/students"
+         render={(props) => <Students students = {this.state.studentList}/>}
+           />
+        </div>
+        </Router>
     );
   }
 }
