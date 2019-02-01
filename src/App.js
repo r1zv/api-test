@@ -40,13 +40,11 @@ class Summary extends Component {
       GPAList.push(elem.GPARecord);
     });
     var flattened = GPAList.reduce((acc, curr) => acc.concat(curr), []);
-    console.log(flattened);
     var sum = 0;
     for (var i = 0; i < flattened.length; i++) {
       sum = sum + flattened[i];
     }
     let oGPA = sum / flattened.length;
-    console.log(oGPA);
     this.setState({ oGPA });
   }
 
@@ -55,7 +53,6 @@ class Summary extends Component {
     let date = 2013;
     let attended;
     let studentList = students.map(obj => {
-      // startYear vs StartYear was a time sink!
       let start = obj.StartYear;
       let end = obj.EndYear;
       let student = {};
@@ -75,7 +72,6 @@ class Summary extends Component {
     let greeting = "Student Summary";
     let attendance = this.state.attendance;
     let studentList = this.state.studentList;
-    console.log(studentList);
     let style = {
       visibility: "visible",
       opacity: 1,
@@ -86,7 +82,26 @@ class Summary extends Component {
       <Router>
         <div>
           <h1>
-            <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+            <Spring
+              from={{
+                width: 100,
+                padding: 0,
+                transform: "translate3d(400px,0,0) scale(2) rotateX(90deg)",
+                boxShadow: "0px 100px 150px -10px #2D3747",
+                borderBottom: "0px solid white",
+                shape: "M20,380 L380,380 L380,380 L200,20 L20,380 Z",
+                textShadow: "0px 5px 0px white"
+              }}
+              to={{
+                width: "auto",
+                padding: 20,
+                transform: "translate3d(0px,0,0) scale(1) rotateX(0deg)",
+                boxShadow: "0px 10px 20px 0px rgba(0,0,0,0.4)",
+                borderBottom: "10px solid #2D3747",
+                shape: "M20,20 L20,380 L380,380 L380,20 L20,20 Z",
+                textShadow: "0px 5px 15px rgba(255,255,255,0.5)"
+              }}
+            >
               {props => <div style={props}>{greeting}</div>}
             </Spring>
           </h1>
