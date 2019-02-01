@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Spring } from "react-spring";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 import Students from "./components/students.component";
@@ -75,30 +76,37 @@ class Summary extends Component {
     let attendance = this.state.attendance;
     let studentList = this.state.studentList;
     console.log(studentList);
+    let style = {
+      visibility: "visible",
+      opacity: 1,
+      transition: "opacity 20s linear"
+    };
 
     return (
       <Router>
-      <div>
-        <h1>{greeting}</h1>
-        <ul>
-          <li>
-          Year: 
-          <Link to="/students">
-          {this.state.year}
-          </Link>
-          </li>
-          <li>Attendance: {this.state.attended}</li>
-          <li>Overall GPA: {this.state.oGPA}</li>
-        </ul>
-        <br></br>
-        <br></br>
+        <div>
+          <h1>
+            <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+              {props => <div style={props}>{greeting}</div>}
+            </Spring>
+          </h1>
+          <ul>
+            <li>
+              Year:
+              <Link to="/students">{this.state.year}</Link>
+            </li>
+            <li>Attendance: {this.state.attended}</li>
+            <li>Overall GPA: {this.state.oGPA}</li>
+          </ul>
+          <br />
+          <br />
 
-        <Route
-         path="/students"
-         render={(props) => <Students students = {this.state.studentList}/>}
-           />
+          <Route
+            path="/students"
+            render={props => <Students students={this.state.studentList} />}
+          />
         </div>
-        </Router>
+      </Router>
     );
   }
 }

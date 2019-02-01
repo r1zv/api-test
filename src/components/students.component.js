@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Spring } from "react-spring";
+
 export default class Students extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +44,11 @@ export default class Students extends Component {
     return (
       <div>
         <h1>Students</h1>
-        <ul>{displayStudents}</ul>
+        <ul>
+          <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+            {props => <div style={props}>{displayStudents}</div>}
+          </Spring>
+        </ul>
       </div>
     );
   }
